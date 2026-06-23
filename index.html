@@ -13,14 +13,16 @@
     background-color: #b9bbbf; 
   }
 
+/* ====== LADYBUG 1 (larger/more spots)====== */
   .ladybug {
     position: absolute;
     top: 0;
     left: 0;
-    width: 160px;
-    height: 100px;
-    offset-rotate: auto; /* faces direction of travel */
-    animation: travel 14s linear forwards;
+    width: 150px;
+    height: 150px;
+    //background-color: #fbfbfb;
+    offset-rotate: auto; 
+    animation: travel 25s linear forwards;
   }
 
   @keyframes travel {
@@ -28,14 +30,63 @@
     100% { offset-distance: 100%; }
   }
 
-  /* Leg animation - quick alternating scuttle */
   .leg {
     transform-origin: var(--ox) var(--oy);
     animation: scuttle 0.22s ease-in-out infinite;
   }
+
   .leg.alt {
     animation-delay: 0.11s;
   }
+
+  .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    offset-rotate: 0deg; 
+    animation: travel 25s linear forwards;
+  }
+
+  .highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    offset-rotate: 0deg; 
+    animation: travel 25s linear forwards;
+  }
+
+
+  @keyframes travelShadow {
+    0%   { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
+  }
+
+
+/* ====== LADYBUG 2 ====== */
+  .ladybug2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 140px;
+    offset-rotate: auto;
+    animation: travel 25s linear forwards;
+  }
+
+  .shadow2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 140px;
+    offset-rotate: 0deg; 
+    animation: travel 25s linear forwards;
+  }
+
 
   @keyframes scuttle {
     0%, 100% { transform: rotate(-18deg); }
@@ -44,14 +95,100 @@
 
   @media (prefers-reduced-motion: reduce) {
     .ladybug { animation: none; }
+    .ladybug2 { animation: none; }
     .leg { animation: none; }
   }
 </style>
 </head>
 <body>
 
+      <! ====== LADYBUG 1 ====== >
+
+  <div class="shadow" id="shadow">
+    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <filter id="shadowBlur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" />
+        </filter>
+      </defs>
+      <ellipse cx="105" cy="70" rx="62" ry="56" fill="#000000" opacity="0.25" filter="url(#shadowBlur)"/>
+    </svg>
+  </div>
+
   <div class="ladybug" id="ladybug">
-    <!-- Ladybug faces +x (right) by default; offset-rotate handles orientation along the path -->
+    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+
+      <!-- legs -->
+      <g stroke="#1C1C1C" stroke-width="7" stroke-linecap="round" fill="none">
+        <line class="leg"     style="--ox:75px; --oy:65px"  x1="75"  y1="65" x2="50"  y2="108"/>
+        <line class="leg alt" style="--ox:100px; --oy:68px" x1="100" y1="68" x2="92"  y2="124"/>
+        <line class="leg"     style="--ox:125px; --oy:65px" x1="125" y1="65" x2="148" y2="108"/>
+        <line class="leg alt" style="--ox:75px; --oy:55px"  x1="75"  y1="55" x2="50"  y2="12"/>
+        <line class="leg"     style="--ox:100px; --oy:52px" x1="100" y1="52" x2="92"  y2="-4"/>
+        <line class="leg alt" style="--ox:125px; --oy:55px" x1="125" y1="55" x2="148" y2="12"/>
+      </g>
+
+      <!-- body -->
+      <ellipse cx="95" cy="60" rx="62" ry="56" fill="#ca292b"/>
+
+      <!-- HEAD -->
+      <!-- tiny white dots behind head-->
+      <ellipse cx="141" cy="55" rx="4" ry="7" fill="#ccccca" transform="rotate(-25,185, 55)"/>
+      <ellipse cx="141" cy="65" rx="4" ry="7" fill="#ccccca" transform="rotate(25,185, 65)"/>
+      <!-- head-->
+      <ellipse cx="165" cy="60" rx="24" ry="28" fill="#1C1C1C" />
+      <!-- white dots at front-->
+      <ellipse cx="185" cy="45" rx="4" ry="7" fill="#ccccca" transform="rotate(-25,185, 45)"/>
+      <ellipse cx="185" cy="75" rx="4" ry="7" fill="#ccccca" transform="rotate(25,185, 75)"/>
+
+      <!-- antennae -->
+      <line x1="178" y1="40" x2="195" y2="22" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round"/>
+      <line x1="178" y1="80" x2="195" y2="98" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="195" cy="22" r="3.5" fill="#1C1C1C"/>
+      <circle cx="195" cy="98" r="3.5" fill="#1C1C1C"/>
+
+      <!-- center seam -->
+      <line x1="165" y1="60" x2="35" y2="60" stroke="#1C1C1C" stroke-width="4"/>
+
+      <!-- spots -->
+      <circle cx="115" cy="40" r="11" fill="#1C1C1C"/>
+      <circle cx="115" cy="80" r="11" fill="#1C1C1C"/>
+      <circle cx="100" cy="10" r="8" fill="#1C1C1C"/>
+      <circle cx="100" cy="110" r="8" fill="#1C1C1C"/>
+      <circle cx="78"  cy="30" r="12" fill="#1C1C1C"/>
+      <circle cx="78"  cy="90" r="12" fill="#1C1C1C"/>
+      <circle cx="50"  cy="60" r="10" fill="#1C1C1C"/>
+      <circle cx="85"  cy="60" r="7" fill="#1C1C1C"/>
+      <circle cx="135"  cy="60" r="10" fill="#1C1C1C"/>
+    </svg>
+  </div>
+
+  <div class="highlight" id="highlight">
+    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <filter id="lightBlur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="12" />
+        </filter>
+      </defs>
+      <ellipse cx="110" cy="55" rx="40" ry="40" fill="#ffffff" opacity="0.1" filter="url(#lightBlur)"/>
+    </svg>
+  </div>
+
+
+      <! ====== LADYBUG 2 ====== >
+
+  <div class="shadow2" id="shadow2">
+    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <filter id="shadowBlur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" />
+        </filter>
+      </defs>
+      <ellipse cx="105" cy="70" rx="62" ry="56" fill="#000000" opacity="0.25" filter="url(#shadowBlur)"/>
+    </svg>
+  </div>
+
+  <div class="ladybug2" id="ladybug2">
     <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 
       <!-- legs -->
@@ -66,10 +203,19 @@
       </g>
 
       <!-- body -->
-      <ellipse cx="95" cy="60" rx="62" ry="58" fill="#C0392B"/>
+      <ellipse cx="95" cy="60" rx="62" ry="56" fill="#bc292b"/>
 
-      <!-- head, on the leading (right) edge -->
-      <circle cx="165" cy="60" r="28" fill="#1C1C1C"/>
+      <!-- HEAD -->
+      <!-- tiny white dots behind head-->
+      <ellipse cx="141" cy="55" rx="4" ry="7" fill="#ccccca" transform="rotate(-25,185, 55)"/>
+      <ellipse cx="141" cy="65" rx="4" ry="7" fill="#ccccca" transform="rotate(25,185, 65)"/>
+
+      <!-- head-->
+      <ellipse cx="165" cy="60" rx="24" ry="28" fill="#1C1C1C" />
+
+      <!-- white dots at front-->
+      <ellipse cx="185" cy="45" rx="4" ry="7" fill="#ccccca" transform="rotate(-25,185, 45)"/>
+      <ellipse cx="185" cy="75" rx="4" ry="7" fill="#ccccca" transform="rotate(25,185, 75)"/>
 
       <!-- antennae -->
       <line x1="178" y1="40" x2="195" y2="22" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round"/>
@@ -78,21 +224,32 @@
       <circle cx="195" cy="98" r="3.5" fill="#1C1C1C"/>
 
       <!-- center seam -->
-      <line x1="165" y1="60" x2="35" y2="60" stroke="#1C1C1C" stroke-width="4"/>
+      <line x1="140" y1="60" x2="35" y2="60" stroke="#1C1C1C" stroke-width="4"/>
 
       <!-- spots -->
-      <circle cx="120" cy="35" r="11" fill="#1C1C1C"/>
-      <circle cx="120" cy="85" r="11" fill="#1C1C1C"/>
-      <circle cx="78"  cy="30" r="11" fill="#1C1C1C"/>
-      <circle cx="78"  cy="90" r="11" fill="#1C1C1C"/>
-      <circle cx="50"  cy="60" r="10" fill="#1C1C1C"/>
+      <circle cx="120" cy="35" r="11" fill="#000000"/>
+      <circle cx="120" cy="85" r="11" fill="#000000"/>
+      <circle cx="78"  cy="30" r="11" fill="#000000"/>
+      <circle cx="78"  cy="90" r="11" fill="#000000"/>
+      <circle cx="50"  cy="60" r="10" fill="#000000"/>
+    </svg>
+  </div>
+
+  <div class="highlight" id="highlight2">
+    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <filter id="lightBlur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="12" />
+        </filter>
+      </defs>
+      <ellipse cx="110" cy="55" rx="40" ry="40" fill="#ffffff" opacity="0.1" filter="url(#lightBlur)"/>
     </svg>
   </div>
 
 <script>
-  // Convert a list of points into one continuous, smooth spline
-  // (Catmull-Rom -> cubic Beziers) so there are no sharp corners
-  // anywhere along the path.
+
+  // Convert a list of points into one smooth list
+
   function smoothPath(points) {
     let d = `M ${points[0].x},${points[0].y} `;
     for (let i = 0; i < points.length - 1; i++) {
@@ -110,24 +267,134 @@
     }
     return d.trim();
   }
-  
+
+  function turtlePath(start, headingDeg, moves) {
+    let heading = headingDeg;
+    let pos = { x: start.x, y: start.y };
+    const points = [{ x: pos.x, y: pos.y }];
+
+    for (const m of moves) {
+      if (m.line !== undefined) {
+        const rad = heading * Math.PI / 180;
+        pos = {
+          x: pos.x + Math.cos(rad) * m.line,
+          y: pos.y + Math.sin(rad) * m.line
+        };
+        points.push({ x: pos.x, y: pos.y });
+      } else if (m.turn !== undefined) {
+        heading += m.turn;
+      }
+    }
+    return points;
+  }
+
+
+function turtlePathCounter(start, headingDeg, moves) {
+    let heading = headingDeg;
+    let pos = { x: start.x, y: start.y };
+    const points = [{ x: pos.x, y: pos.y }];
+
+    for (const m of moves) {
+      if (m.line !== undefined) {
+        const rad = heading * Math.PI / 180;
+        pos = {
+          x: pos.x + Math.cos(rad) * m.line,
+          y: pos.y + Math.sin(rad) * m.line
+        };
+        points.push({ x: pos.x, y: pos.y });
+      } else if (m.turn !== undefined) {
+        heading += m.turn;
+      }
+    }
+    return points;
+  }
+
   function buildPath() {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    const start = { x: w * 1.19, y: h * 0.8 };   // off-screen, bottom-right
-    const nw    = { x: w * 0.25, y: h * 0.18 };
-    const turn2 = { x: w * 0.25, y: h * 0.62 };
-    const turn3 = { x: w * 1.2,  y: h * 0.3 };
-    const turn4 = { x: w * 0.45, y: h * 0.18 };
-    const turn5 = { x: w * 0.30, y: h * 0.64 };
-    const turn6 = { x: w * 0.65, y: h * 0.10 };
-    const exit  = { x: w * 1.15, y: h * 0.45 };  // off-screen, right
+    // ---- DIRECTIONS ---- 
+    const moves = [
+      { line: w * 0.5 },   
+      { turn: -40},          
+      {line: w * 0.35 },
+      { turn: 40},          
+      {line: w * 0.25},
+      { turn: 30},          
+      {line: w * 0.25 },
+      { turn: 40},          
+      {line: w * 0.25 },
+      { turn: 40},          
+      {line: w * 0.2},
+      { turn: -40},          
+      {line: w * 0.2},
+      { turn: -30},          
+      {line: w * 0.2},
+      { turn: 30},          
+      {line: w * 0.15},
+      { turn: 30},          
+      {line: w * 0.06},
+      { turn: 100},          
+      {line: w * 0.15},
+      { turn: 35},          
+      {line: w * 0.15},
+      { turn: 35},          
+      {line: w * 0.15},
+      { turn: 35},          
+      {line: w * 0.20},
+      {turn: -40},          
+      {line: w * 0.2},
+      {turn: -40},          
+      {line: w * 0.55},
 
-    const points = [start, nw, turn2, turn3, turn4, turn2, turn5, turn6, exit];
+      {turn: -50},          
+      {line: w * 0.25},
+      {turn: -35},          
+      {line: w * 0.25},
+      {turn: -10},          
+      {line: w * 0.3},
+      {turn: 270},          
+      {line: w * 1.0},
+      {turn: -50},          
+      {line: w * .5},
+      { turn: 200},          
+      {line: w * 0.7},
+      { turn: -30},          
+      {line: w * 0.2},
+      { turn: 30},          
+      {line: w * 0.15},
+      { turn: 30},          
+      {line: w * 0.10},
+      { turn: 100},          
+      {line: w * 0.15},
+      { turn: 35},          
+      {line: w * 0.15},
+      { turn: -35},          
+      {line: w * .3},
+      { turn: -35},          
+      {line: w * .4},
+      { turn: 135},          
+      {line: w * .5},
+      { turn: -35},          
+      {line: w * .5},
+  ];
+
+    const startHeading = 210; 
+    const start = { x: w * 1.19, y: h * 0.8 }; 
+    const points = turtlePath(start, startHeading, moves);
     const d = smoothPath(points);
-
     document.getElementById('ladybug').style.offsetPath = `path('${d}')`;
+    document.getElementById('shadow').style.offsetPath = `path('${d}')`;
+    document.getElementById('highlight').style.offsetPath = `path('${d}')`;
+
+    const start2Heading = 85; 
+    const start2 = { x: w * -0.15, y: h * 0.2 }; 
+    const points2 = turtlePath(start2, start2Heading, moves);
+    const d2 = smoothPath(points2);
+    document.getElementById('ladybug2').style.offsetPath = `path('${d2}')`;
+    document.getElementById('shadow2').style.offsetPath = `path('${d2}')`; 
+    document.getElementById('highlight2').style.offsetPath = `path('${d2}')`;
+
   }
 
   buildPath();
