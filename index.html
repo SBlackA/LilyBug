@@ -20,7 +20,7 @@
     left: 0;
     width: 130px;
     height: 130px;
-    //background-color: #fbfbfb;
+    /* background-color: #fbfbfb; */
     offset-rotate: auto; 
     animation: travel 25s linear forwards;
   }
@@ -59,13 +59,6 @@
     animation: travel 25s linear forwards;
   }
 
-
-  @keyframes travelShadow {
-    0%   { offset-distance: 0%; }
-    100% { offset-distance: 100%; }
-  }
-
-
 /* ====== LADYBUG 2 ====== */
   .ladybug2 {
     position: absolute;
@@ -87,7 +80,6 @@
     animation: travel 25s linear forwards;
   }
 
-
   @keyframes scuttle {
     0%, 100% { transform: rotate(-18deg); }
     50%      { transform: rotate(18deg); }
@@ -102,16 +94,16 @@
 </head>
 <body>
 
-      <! ====== LADYBUG 1 ====== >
+  <!-- ====== LADYBUG 1 ====== -->
 
   <div class="shadow" id="shadow">
     <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       <defs>
-        <filter id="shadowBlur" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id="shadowBlur1" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="6" />
         </filter>
       </defs>
-      <ellipse cx="105" cy="70" rx="62" ry="56" fill="#000000" opacity="0.25" filter="url(#shadowBlur)"/>
+      <ellipse cx="105" cy="70" rx="62" ry="56" fill="#000000" opacity="0.25" filter="url(#shadowBlur1)"/>
     </svg>
   </div>
 
@@ -166,25 +158,24 @@
   <div class="highlight" id="highlight">
     <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       <defs>
-        <filter id="lightBlur" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id="lightBlur1" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="12" />
         </filter>
       </defs>
-      <ellipse cx="110" cy="55" rx="40" ry="40" fill="#ffffff" opacity="0.1" filter="url(#lightBlur)"/>
+      <ellipse cx="110" cy="55" rx="40" ry="40" fill="#ffffff" opacity="0.1" filter="url(#lightBlur1)"/>
     </svg>
   </div>
 
-
-      <! ====== LADYBUG 2 ====== >
+  <!-- ====== LADYBUG 2 ====== -->
 
   <div class="shadow2" id="shadow2">
     <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       <defs>
-        <filter id="shadowBlur" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id="shadowBlur2" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="6" />
         </filter>
       </defs>
-      <ellipse cx="105" cy="70" rx="62" ry="56" fill="#000000" opacity="0.25" filter="url(#shadowBlur)"/>
+      <ellipse cx="105" cy="70" rx="62" ry="56" fill="#000000" opacity="0.25" filter="url(#shadowBlur2)"/>
     </svg>
   </div>
 
@@ -238,18 +229,18 @@
   <div class="highlight" id="highlight2">
     <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       <defs>
-        <filter id="lightBlur" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id="lightBlur2" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="12" />
         </filter>
       </defs>
-      <ellipse cx="110" cy="55" rx="40" ry="40" fill="#ffffff" opacity="0.1" filter="url(#lightBlur)"/>
+      <ellipse cx="110" cy="55" rx="40" ry="40" fill="#ffffff" opacity="0.1" filter="url(#lightBlur2)"/>
     </svg>
   </div>
 
 <script>
 
-  // Convert a list of points into one smooth list
-
+  // Convert a list of points into one continuous, smooth spline
+  // (Catmull-Rom -> cubic Beziers) so there are no sharp corners.
   function smoothPath(points) {
     let d = `M ${points[0].x},${points[0].y} `;
     for (let i = 0; i < points.length - 1; i++) {
@@ -269,27 +260,6 @@
   }
 
   function turtlePath(start, headingDeg, moves) {
-    let heading = headingDeg;
-    let pos = { x: start.x, y: start.y };
-    const points = [{ x: pos.x, y: pos.y }];
-
-    for (const m of moves) {
-      if (m.line !== undefined) {
-        const rad = heading * Math.PI / 180;
-        pos = {
-          x: pos.x + Math.cos(rad) * m.line,
-          y: pos.y + Math.sin(rad) * m.line
-        };
-        points.push({ x: pos.x, y: pos.y });
-      } else if (m.turn !== undefined) {
-        heading += m.turn;
-      }
-    }
-    return points;
-  }
-
-
-function turtlePathCounter(start, headingDeg, moves) {
     let heading = headingDeg;
     let pos = { x: start.x, y: start.y };
     const points = [{ x: pos.x, y: pos.y }];
